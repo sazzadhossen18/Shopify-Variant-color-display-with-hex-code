@@ -1,0 +1,35 @@
+
+https://www.youtube.com/watch?v=guByvmuuCrA&t=1301s
+
+
+
+             Hex color code  Product Page 
+=================================================================
+
+{
+"type": "textarea",
+"id": "variantcolors",
+"label": "variantcolors"
+}
+
+
+   {%- for value in option.values -%}
+    <div class="SwatchBox">           
+      {%- assign colorsArray = settings.variantcolors | escape | strip_newlines | split: ',' -%}
+      {%- assign colorValue = '' -%}
+      {%- assign colorName = '' -%}
+      {%- assign optionValue = value | downcase | escape -%}
+      {% for colorOpt in colorsArray %}
+      {%- assign colorOptArray = colorOpt | downcase | escape | split: ':' -%}
+      {% if colorOptArray[0] == optionValue %}
+      {%- assign colorName = colorOptArray[0] -%}
+      {%- assign colorValue = colorOptArray[1] -%}
+      {% endif %}
+      {% endfor %}
+                              
+      <input type="radio" name="{{ option.name | handleize }}" class="singleSelector" id="singleSelector-{{ option.name | handleize }}-{{ forloop.index }}" value="{{ value | escape }}" {% if option.selected_value == value %} checked="checked"{% endif %}>
+      <label for="singleSelector-{{ option.name | handleize }}-{{ forloop.index }}" 
+      style="background-color:{{ colorValue }}">
+      {{ value | escape }} </label>
+    </div>
+  {%- endfor -%}
